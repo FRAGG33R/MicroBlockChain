@@ -6,7 +6,7 @@
 /*   By: abarchil <abarchil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 00:07:56 by abarchil          #+#    #+#             */
-/*   Updated: 2022/04/05 02:43:41 by abarchil         ###   ########.fr       */
+/*   Updated: 2022/04/05 23:02:34 by abarchil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ std::string Block::getHash( void )
 void    Block::MainBlock(size_t NDifficulty)
 {
     char str[NDifficulty + 1];
-    for (size_t i = 0; i < NDifficulty;  i++)
+    size_t i = 0;
+    for (; i < NDifficulty;  i++)
         str[i] = '0';
     str[i] = '\0';
     _Nonce++;
@@ -42,5 +43,5 @@ inline std::string Block::CalculateHash() const
 {
     std::stringstream Mystream;
     Mystream << this->_Index << this->_Data << this->_Nonce << this->_PrevHash;
-    // return (sha256(Mystream.str()));
+    return (sha256(Mystream.str()));
 }
