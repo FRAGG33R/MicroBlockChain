@@ -2,7 +2,7 @@ SRC_FILE = main.cpp Block.cpp BlockChain.cpp sha256.cpp
 
 OBJ_FILE = $(SRC_FILE:.cpp=.o)
 
-NAME = Bureaucrat
+NAME = Block
 
 CC = c++
 

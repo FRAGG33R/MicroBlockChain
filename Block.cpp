@@ -6,7 +6,7 @@
 /*   By: abarchil <abarchil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 00:07:56 by abarchil          #+#    #+#             */
-/*   Updated: 2022/04/05 23:02:34 by abarchil         ###   ########.fr       */
+/*   Updated: 2022/04/05 23:09:45 by abarchil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@ Block::Block()
     this->_Data = std::string();
     this->_Hash = std::string();
     this->_Index = -1;
+    this->_Time = time(nullptr);
+}
+
+Block::Block(size_t Index, const std::string &Data)
+{
+    this->_Index = Index;
+    this->_Data = Data;
+    this->_Nonce = 0;
+    this->_Hash = std::string();
     this->_Time = time(nullptr);
 }
 
@@ -33,10 +42,13 @@ void    Block::MainBlock(size_t NDifficulty)
     for (; i < NDifficulty;  i++)
         str[i] = '0';
     str[i] = '\0';
-    _Nonce++;
-    _Hash = CalculateHash();
-    while (_Hash.substr(0, NDifficulty) != str)
-        std::cout << "\033[0;36mBlock Mined...\033[0m" << std::endl;
+    do
+    {
+        _Nonce++;
+        _Hash = CalculateHash();
+    } while (_Hash.substr(0, NDifficulty) != str);
+    
+    std::cout << "\033[0;36mBlock Mined : \033[0m" << this->_Hash << std::endl;
 }
 
 inline std::string Block::CalculateHash() const 
